@@ -1,9 +1,9 @@
 %%%-------------------------------------------------------------------
-%% @doc gameserv public API
+%% @doc rgsrv public API
 %% @end
 %%%-------------------------------------------------------------------
 
--module(gameserv_app).
+-module(rgsrv_app).
 
 -behaviour(application).
 
@@ -12,7 +12,7 @@
 start(_StartType, _StartArgs) ->
     Opts = #{transport_opts => [{ip,{127,0,0,1}},{port,8080}]},
     gs_server:start(gs, Opts),
-    gameserv_sup:start_link().
+    rgsrv_sup:start_link().
 
 stop(_State) ->
     ok.

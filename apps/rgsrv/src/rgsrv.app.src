@@ -1,12 +1,11 @@
-{application, gameserv, [
+{application, rgsrv, [
     {description, "An OTP application"},
     {vsn, "0.1.0"},
     {registered, []},
-    {mod, {gameserv_app, []}},
+    {mod, {rgsrv_app, []}},
     {applications, [kernel, stdlib, public_key, ssl, inets, ranch, cowboy]},
     {env, []},
     {modules, []},
     {licenses, ["Apache-2.0"]},
     {links, []}
  ]}.
-

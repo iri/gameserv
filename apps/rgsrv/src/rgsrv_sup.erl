@@ -1,9 +1,9 @@
 %%%-------------------------------------------------------------------
-%% @doc gameserv top level supervisor.
+%% @doc rgsrv top level supervisor.
 %% @end
 %%%-------------------------------------------------------------------
 
--module(gameserv_sup).
+-module(rgsrv_sup).
 
 -behaviour(supervisor).
 
@@ -35,4 +35,3 @@ init([]) ->
     {ok, {SupFlags, ChildSpecs}}.
 
 %% internal functions
-
