@@ -1,0 +1,10 @@
+README.md
+priv/openapi.json
+rebar.config
+src/gs.app.src
+src/gs_api.erl
+src/gs_auth.erl
+src/gs_default_handler.erl
+src/gs_logic_handler.erl
+src/gs_router.erl
+src/gs_server.erl

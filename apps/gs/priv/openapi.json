@@ -1,0 +1,474 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "description" : "Server for playing board games",
+    "title" : "Gameserver API",
+    "version" : "v1"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080/v1"
+  } ],
+  "paths" : {
+    "/players" : {
+      "post" : {
+        "operationId" : "createPlayer",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PlayerRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlayerResponse"
+                }
+              }
+            },
+            "description" : "Created Game Holder"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Create an Game Holder"
+      }
+    },
+    "/players{id}" : {
+      "get" : {
+        "operationId" : "getPlayer",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PlayerResponse"
+                }
+              }
+            },
+            "description" : "Game Holder"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Get an Game Holder"
+      }
+    },
+    "/games" : {
+      "post" : {
+        "operationId" : "createGame",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/GameRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GameResponse"
+                }
+              }
+            },
+            "description" : "Created Game"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Create an Game"
+      }
+    },
+    "/games/{id}" : {
+      "get" : {
+        "operationId" : "getGame",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GameResponse"
+                }
+              }
+            },
+            "description" : "Game"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Get an Game"
+      }
+    },
+    "/actions" : {
+      "post" : {
+        "operationId" : "createAction",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ActionRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            },
+            "description" : "Created Action"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Create a Action"
+      }
+    },
+    "/actions/{id}" : {
+      "get" : {
+        "operationId" : "getAction",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            },
+            "description" : "Action"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Get a Action"
+      },
+      "patch" : {
+        "operationId" : "updateAction",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ActionUpdateRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ActionResponse"
+                }
+              }
+            },
+            "description" : "Action"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FailureResponse"
+                }
+              }
+            },
+            "description" : "Something went wrong, see details for information"
+          }
+        },
+        "summary" : "Update a Action's status"
+      }
+    },
+    "/ping" : {
+      "get" : {
+        "operationId" : "ping",
+        "responses" : {
+          "204" : {
+            "description" : "Pong"
+          }
+        },
+        "summary" : "Ping"
+      }
+    },
+    "/healtcheck" : {
+      "get" : {
+        "operationId" : "healthcheck",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HealthcheckResponse"
+                }
+              }
+            },
+            "description" : "Health Status"
+          }
+        },
+        "summary" : "Healthcheck"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "PlayerRequest" : {
+        "description" : "Game Holder Request",
+        "example" : {
+          "last_name" : "last_name",
+          "first_name" : "first_name"
+        },
+        "properties" : {
+          "first_name" : {
+            "type" : "string"
+          },
+          "last_name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "first_name", "last_name" ],
+        "type" : "object"
+      },
+      "PlayerResponse" : {
+        "description" : "Game Holder Response",
+        "example" : {
+          "last_name" : "last_name",
+          "id" : "id",
+          "first_name" : "first_name"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "first_name" : {
+            "type" : "string"
+          },
+          "last_name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "first_name", "id", "last_name" ],
+        "type" : "object"
+      },
+      "GameRequest" : {
+        "description" : "Game Request",
+        "example" : {
+          "player_id" : "player_id"
+        },
+        "properties" : {
+          "player_id" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "player_id" ],
+        "type" : "object"
+      },
+      "GameResponse" : {
+        "description" : "Game Response",
+        "example" : {
+          "player_id" : "player_id",
+          "id" : "id"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "player_id" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "id", "player_id" ],
+        "type" : "object"
+      },
+      "ActionRequest" : {
+        "description" : "Action Request",
+        "example" : {
+          "game_id" : "game_id"
+        },
+        "properties" : {
+          "game_id" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "game_id" ],
+        "type" : "object"
+      },
+      "ActionUpdateRequest" : {
+        "description" : "Action Update Request",
+        "example" : {
+          "status" : "CREATED"
+        },
+        "properties" : {
+          "status" : {
+            "$ref" : "#/components/schemas/ActionStatus"
+          }
+        },
+        "required" : [ "status" ],
+        "type" : "object"
+      },
+      "ActionResponse" : {
+        "description" : "Action Response",
+        "example" : {
+          "id" : "id",
+          "status" : "CREATED"
+        },
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/ActionStatus"
+          }
+        },
+        "required" : [ "id", "status" ],
+        "type" : "object"
+      },
+      "ActionStatus" : {
+        "enum" : [ "CREATED", "SETTLED", "CANCELED" ],
+        "type" : "string"
+      },
+      "FailureResponse" : {
+        "description" : "Response message indicating Scheme experienced a problem.",
+        "example" : {
+          "error_messages" : [ "error_messages", "error_messages" ]
+        },
+        "properties" : {
+          "error_messages" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "error_messages" ],
+        "type" : "object"
+      },
+      "HealthcheckResponse" : {
+        "description" : "Healthcheck Response",
+        "example" : {
+          "healthy" : [ "healthy", "healthy" ],
+          "unhealthy" : [ "unhealthy", "unhealthy" ]
+        },
+        "properties" : {
+          "healthy" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "unhealthy" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "healthy", "unhealthy" ],
+        "type" : "object"
+      }
+    }
+  }
+}

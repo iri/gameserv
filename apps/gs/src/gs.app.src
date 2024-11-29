@@ -1,0 +1,11 @@
+{application,
+ gs,
+ [{description,
+   "Server for playing board games"},
+  {vsn, "1.0.0"},
+  {registered, []},
+  {applications, [kernel, stdlib, public_key, ssl, inets, ranch, cowboy]},
+  {env, []},
+  {modules, []},
+  {licenses, []},
+  {links, []}]}.

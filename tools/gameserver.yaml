@@ -1,0 +1,297 @@
+---
+openapi: 3.0.1
+info:
+  title: Gameserver API
+  description: Server for playing board games
+  version: 'v1'
+servers:
+  - url: 'http://localhost:8080/v1'
+paths:
+  '/players':
+    post:
+      summary: Create an Game Holder
+      operationId: createPlayer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerRequest'
+      responses:
+        '201':
+          description: Created Game Holder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/players{id}':
+    get:
+      summary: Get an Game Holder
+      operationId: getPlayer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Game Holder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/games':
+    post:
+      summary: Create an Game
+      operationId: createGame
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameRequest'
+      responses:
+        '201':
+          description: Created Game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/games/{id}':
+    get:
+      summary: Get an Game
+      operationId: getGame
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/actions':
+    post:
+      summary: Create a Action
+      operationId: createAction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRequest'
+      responses:
+        '201':
+          description: Created Action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/actions/{id}':
+    get:
+      summary: Get a Action
+      operationId: getAction
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+    patch:
+      summary: Update a Action's status
+      operationId: updateAction
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionUpdateRequest'
+      responses:
+        '200':
+          description: Action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        default:
+          description: 'Something went wrong, see details for information'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  '/ping':
+    get:
+      summary: Ping
+      operationId: ping
+      responses:
+        '204':
+          description: Pong
+  '/healtcheck':
+    get:
+      summary: Healthcheck
+      operationId: healthcheck
+      responses:
+        '200':
+          description: Health Status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthcheckResponse'
+components:
+  schemas:
+    PlayerRequest:
+      description: Game Holder Request
+      type: object
+      required:
+        - first_name
+        - last_name
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+    PlayerResponse:
+      description: Game Holder Response
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+    GameRequest:
+      description: Game Request
+      type: object
+      required:
+        - player_id
+      properties:
+        player_id:
+          type: string
+    GameResponse:
+      description: Game Response
+      type: object
+      required:
+        - id
+        - player_id
+      properties:
+        id:
+          type: string
+        player_id:
+          type: string
+    ActionRequest:
+      description: Action Request
+      type: object
+      required:
+        - game_id
+      properties:
+        game_id:
+          type: string
+    ActionUpdateRequest:
+      description: Action Update Request
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/ActionStatus'
+    ActionResponse:
+      description: Action Response
+      type: object
+      required:
+        - id
+        - status
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/ActionStatus'
+    ActionStatus:
+      type: string
+      enum:
+        - CREATED
+        - SETTLED
+        - CANCELED
+    FailureResponse:
+      description: Response message indicating Scheme experienced a problem.
+      type: object
+      required:
+        - error_messages
+      properties:
+        error_messages:
+          type: array
+          items:
+            type: string
+    HealthcheckResponse:
+      description: Healthcheck Response
+      type: object
+      required:
+        - healthy
+        - unhealthy
+      properties:
+        healthy:
+          type: array
+          items:
+            type: string
+        unhealthy:
+          type: array
+          items:
+            type: string
