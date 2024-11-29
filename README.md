@@ -1,5 +1,5 @@
-gameserv
-========
+rgsrv
+=====
 
 REST server for board games
 
