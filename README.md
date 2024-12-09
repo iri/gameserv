@@ -1,7 +1,7 @@
 rgsrv
 =====
 
-REST server for board games
+REST server for board games (Erlang/Postgres)
 
 Build
 -----
